@@ -1,0 +1,74 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Models for the mentions app
+model Comment {
+  id        String   @id @default(cuid())
+  content   String
+  authorId  String   // Clerk user ID
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  parentId     String?   // For nested comments
+  parent       Comment?  @relation("CommentToComment", fields: [parentId], references: [id], onDelete: Cascade)
+  replies      Comment[] @relation("CommentToComment")
+  mentions     Mention[] @relation("CommentMentions")
+  
+  // Indexes
+  @@index([authorId])
+  @@index([parentId])
+  @@index([createdAt])
+}
+
+model Mention {
+  id        String   @id @default(cuid())
+  userId    String   // Clerk user ID of the mentioned user
+  commentId String
+  createdAt DateTime @default(now())
+
+  // Relations
+  comment      Comment       @relation("CommentMentions", fields: [commentId], references: [id], onDelete: Cascade)
+  notification Notification? @relation("MentionNotification")
+
+  // Indexes
+  @@index([userId])
+  @@index([commentId])
+  @@unique([userId, commentId]) // Prevent duplicate mentions in the same comment
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String   // Clerk user ID of the user being notified
+  type      NotificationType
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  mentionId String?  @unique // One-to-one with Mention
+  mention   Mention? @relation("MentionNotification", fields: [mentionId], references: [id], onDelete: Cascade)
+
+  // Indexes
+  @@index([userId])
+  @@index([createdAt])
+  @@index([read])
+}
+
+enum NotificationType {
+  MENTION
+  REPLY
+  // Add more notification types as needed
+}
