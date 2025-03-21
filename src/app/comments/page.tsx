@@ -66,12 +66,33 @@ export default function CommentsPage() {
 
         {/* Main content */}
         <div className="flex-1 p-4">
-          <h1 className="mb-4 text-2xl font-bold">Comments</h1>
+          <h1 className="mb-4 text-2xl font-bold">
+            Interactive Document Example
+          </h1>
           <div className="relative min-h-[500px] rounded-lg border bg-background p-4">
-            <p className="mb-4">
-              Select text to add a comment, or use the comment tool to comment
-              on an area. Use @ to mention someone.
-            </p>
+            <div className="prose max-w-none">
+              <div className="bg-blue-50 p-4 rounded-lg border border-blue-200 mb-4">
+                <h3 className="text-blue-800">👋 Try commenting here!</h3>
+                <p className="text-blue-600">
+                  This is an interactive section. Click the comment icon in the
+                  bottom right or select any text to start a discussion. You can
+                  also try @mentioning other users!
+                </p>
+              </div>
+              <h2>Getting Started with Next.js</h2>
+              <p className="mb-4">
+                Next.js is a powerful React framework that enables features like
+                server-side rendering and static site generation. It&apos;s
+                designed to help you build production-ready React applications.
+              </p>
+              <h3>Project Structure</h3>
+              <p className="mb-4">
+                A typical Next.js project includes several important directories
+                and files. The &apos;app&apos; directory contains your
+                application&apos;s pages and components, while the
+                &apos;public&apos; directory stores static assets.
+              </p>
+            </div>
 
             {/* Enable reactions */}
             <VeltReactionTool />

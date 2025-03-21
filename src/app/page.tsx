@@ -50,7 +50,7 @@ export default function Home() {
       <div className="text-center">
         <p className="mb-4 text-xl">
           {isSignedIn
-            ? "You&apos;re signed in! Click &apos;Go to Comments&apos; to start commenting."
+            ? "You're signed in! Click & Go to Comments to start commenting."
             : "Please sign in to start using the comments feature."}
         </p>
 
