@@ -129,7 +129,7 @@ export function Providers({ children }: { children: ReactNode }) {
         signIn: { baseTheme: undefined },
       }}
     >
-      <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+      <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
         <VeltProviderWithAuth>{children}</VeltProviderWithAuth>
       </ThemeProvider>
     </ClerkProvider>

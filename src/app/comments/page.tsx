@@ -13,6 +13,8 @@ import {
 import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import Link from "next/link";
+import { Home } from "lucide-react";
 
 export default function CommentsPage() {
   const { isLoaded, isSignedIn } = useUser();
@@ -56,6 +58,17 @@ export default function CommentsPage() {
       {/* Notifications bell */}
       <div className="fixed top-4 right-24 z-50">
         <VeltNotificationsTool />
+      </div>
+
+      {/* Home button */}
+      <div className="fixed top-4 left-4 z-50">
+        <Link
+          href="/"
+          className="inline-flex h-9 items-center justify-center rounded-md border border-gray-700 bg-background/80 px-4 text-sm font-medium text-foreground shadow-sm transition-all duration-200 hover:bg-primary/10 hover:text-primary hover:shadow-md hover:border-gray-600 backdrop-blur-sm"
+        >
+          <Home className="w-4 h-4 mr-2" />
+          Home
+        </Link>
       </div>
 
       <div className="flex">
